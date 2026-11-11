@@ -9,7 +9,7 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- SheetJS for parsing Excel and CSV files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -39,15 +39,11 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-slate-900 text-lg leading-tight">DiffChecker Pro</h1>
-                    <p class="text-xs text-slate-500 font-medium">100% Client-Side Fast Excel & CSV Comparator</p>
+                    <p class="text-xs text-slate-500 font-medium">Fast Excel & CSV Comparator</p>
                 </div>
             </div>
 
             <div class="flex items-center space-x-4">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 border border-emerald-200">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>
-                    Always Online / No Sleep
-                </span>
                 <button id="reset-all-btn" class="hidden text-xs font-semibold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition-colors border border-rose-200 flex items-center">
                     <i class="fa-solid fa-arrows-rotate mr-1.5"></i> Reset All
                 </button>
@@ -58,18 +54,14 @@
     <!-- Main Body Container -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
-        <!-- Controls & Options Banner -->
-        <div class="bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
+        <!-- Controls Banner -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-sm flex items-center justify-between">
             <div class="flex items-center space-x-4">
                 <label class="relative inline-flex items-center cursor-pointer select-none">
-                    <input type="checkbox" id="has-header-toggle" class="sr-only peer" checked>
+                    <input type="checkbox" id="has-header-toggle" class="sr-only peer">
                     <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none ring-0 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     <span class="ml-3 text-sm font-medium text-slate-700">First row is Header <span class="text-xs text-slate-400 font-normal">(Ignores top header row)</span></span>
                 </label>
-            </div>
-            
-            <div class="flex items-center space-x-3 text-xs text-slate-500">
-                <span class="flex items-center"><i class="fa-solid fa-[#107c41] fa-shield-halved text-emerald-600 mr-1.5 text-sm"></i> Data stays private in your browser</span>
             </div>
         </div>
 
@@ -209,126 +201,88 @@
                 </div>
             </div>
 
-            <!-- Tabbed / Side-by-side Table View -->
-            <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-                <!-- Tabs Header -->
-                <div class="border-b border-slate-200 bg-slate-50/50 px-4 pt-3 flex flex-wrap items-center justify-between gap-4">
-                    <div class="flex space-x-2" id="tab-buttons">
-                        <button data-tab="tab-only-1" class="tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm border-b-2 border-amber-500 text-amber-700 bg-white shadow-sm flex items-center space-x-2">
-                            <span>Unique to File 1</span>
-                            <span id="badge-only-1" class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
-                        </button>
-                        <button data-tab="tab-only-2" class="tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-100 flex items-center space-x-2">
-                            <span>Unique to File 2</span>
-                            <span id="badge-only-2" class="bg-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
-                        </button>
-                        <button data-tab="tab-common" class="tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-100 flex items-center space-x-2">
-                            <span>Common Values</span>
-                            <span id="badge-common" class="bg-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
-                        </button>
+            <!-- Side-by-Side Tables -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Table 1: In File 1, NOT in File 2 -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-sm flex items-center space-x-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                                <span>In File 1, but NOT in File 2</span>
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-0.5"><span id="count-only-1" class="font-semibold text-slate-700">0</span> unique records</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="copyToClipboard('only-1')" class="px-2.5 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center">
+                                <i class="fa-regular fa-copy mr-1"></i> Copy
+                            </button>
+                            <button onclick="downloadCSV('only-1')" class="px-2.5 py-1.5 text-xs font-medium text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-lg transition-colors flex items-center">
+                                <i class="fa-solid fa-download mr-1"></i> Download CSV
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- Search Filter input -->
-                    <div class="pb-3 w-full sm:w-auto">
-                        <div class="relative">
-                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
-                            <input type="text" id="table-search" placeholder="Filter current view..." class="pl-8 pr-4 py-1.5 text-xs bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full sm:w-64">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="search-only-1" placeholder="Search table..." class="w-full pl-8 pr-4 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl overflow-hidden">
+                        <div class="max-h-80 overflow-y-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead class="bg-slate-50 sticky top-0 text-xs text-slate-500 font-semibold border-b border-slate-200">
+                                    <tr>
+                                        <th class="py-2.5 px-4 w-14">#</th>
+                                        <th class="py-2.5 px-4">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body-only-1" class="divide-y divide-slate-100 text-sm font-mono text-slate-700">
+                                    <!-- Rows -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tab Panels -->
-                <div class="p-6">
-                    <!-- Panel 1: Only in File 1 -->
-                    <div id="tab-only-1" class="tab-panel space-y-4">
-                        <div class="flex items-center justify-between">
-                            <h4 class="text-sm font-semibold text-slate-700">Values present in File 1 but missing in File 2</h4>
-                            <div class="flex space-x-2">
-                                <button onclick="copyToClipboard('only-1')" class="px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center">
-                                    <i class="fa-regular fa-copy mr-1.5"></i> Copy List
-                                </button>
-                                <button onclick="downloadCSV('only-1')" class="px-3 py-1.5 text-xs font-medium text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-lg transition-colors flex items-center">
-                                    <i class="fa-solid fa-download mr-1.5"></i> Download CSV
-                                </button>
-                            </div>
+                <!-- Table 2: In File 2, NOT in File 1 -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-sm flex items-center space-x-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+                                <span>In File 2, but NOT in File 1</span>
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-0.5"><span id="count-only-2" class="font-semibold text-slate-700">0</span> unique records</p>
                         </div>
-
-                        <div class="border border-slate-200 rounded-xl overflow-hidden">
-                            <div class="max-h-96 overflow-y-auto">
-                                <table class="w-full text-left border-collapse">
-                                    <thead class="bg-slate-50 sticky top-0 text-xs text-slate-500 font-semibold border-b border-slate-200">
-                                        <tr>
-                                            <th class="py-3 px-4 w-16">#</th>
-                                            <th class="py-3 px-4">Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table-body-only-1" class="divide-y divide-slate-100 text-sm font-mono text-slate-700">
-                                        <!-- Dynamic Rows -->
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="copyToClipboard('only-2')" class="px-2.5 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center">
+                                <i class="fa-regular fa-copy mr-1"></i> Copy
+                            </button>
+                            <button onclick="downloadCSV('only-2')" class="px-2.5 py-1.5 text-xs font-medium text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg transition-colors flex items-center">
+                                <i class="fa-solid fa-download mr-1"></i> Download CSV
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Panel 2: Only in File 2 -->
-                    <div id="tab-only-2" class="tab-panel hidden space-y-4">
-                        <div class="flex items-center justify-between">
-                            <h4 class="text-sm font-semibold text-slate-700">Values present in File 2 but missing in File 1</h4>
-                            <div class="flex space-x-2">
-                                <button onclick="copyToClipboard('only-2')" class="px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center">
-                                    <i class="fa-regular fa-copy mr-1.5"></i> Copy List
-                                </button>
-                                <button onclick="downloadCSV('only-2')" class="px-3 py-1.5 text-xs font-medium text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg transition-colors flex items-center">
-                                    <i class="fa-solid fa-download mr-1.5"></i> Download CSV
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="border border-slate-200 rounded-xl overflow-hidden">
-                            <div class="max-h-96 overflow-y-auto">
-                                <table class="w-full text-left border-collapse">
-                                    <thead class="bg-slate-50 sticky top-0 text-xs text-slate-500 font-semibold border-b border-slate-200">
-                                        <tr>
-                                            <th class="py-3 px-4 w-16">#</th>
-                                            <th class="py-3 px-4">Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table-body-only-2" class="divide-y divide-slate-100 text-sm font-mono text-slate-700">
-                                        <!-- Dynamic Rows -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="search-only-2" placeholder="Search table..." class="w-full pl-8 pr-4 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
 
-                    <!-- Panel 3: Common Values -->
-                    <div id="tab-common" class="tab-panel hidden space-y-4">
-                        <div class="flex items-center justify-between">
-                            <h4 class="text-sm font-semibold text-slate-700">Values that exist in both files</h4>
-                            <div class="flex space-x-2">
-                                <button onclick="copyToClipboard('common')" class="px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center">
-                                    <i class="fa-regular fa-copy mr-1.5"></i> Copy List
-                                </button>
-                                <button onclick="downloadCSV('common')" class="px-3 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition-colors flex items-center">
-                                    <i class="fa-solid fa-download mr-1.5"></i> Download CSV
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="border border-slate-200 rounded-xl overflow-hidden">
-                            <div class="max-h-96 overflow-y-auto">
-                                <table class="w-full text-left border-collapse">
-                                    <thead class="bg-slate-50 sticky top-0 text-xs text-slate-500 font-semibold border-b border-slate-200">
-                                        <tr>
-                                            <th class="py-3 px-4 w-16">#</th>
-                                            <th class="py-3 px-4">Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table-body-common" class="divide-y divide-slate-100 text-sm font-mono text-slate-700">
-                                        <!-- Dynamic Rows -->
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="border border-slate-200 rounded-xl overflow-hidden">
+                        <div class="max-h-80 overflow-y-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead class="bg-slate-50 sticky top-0 text-xs text-slate-500 font-semibold border-b border-slate-200">
+                                    <tr>
+                                        <th class="py-2.5 px-4 w-14">#</th>
+                                        <th class="py-2.5 px-4">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body-only-2" class="divide-y divide-slate-100 text-sm font-mono text-slate-700">
+                                    <!-- Rows -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -340,7 +294,7 @@
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400">
-            DiffChecker Pro &bull; Runs completely in your browser. No server connection required.
+            DiffChecker Pro
         </div>
     </footer>
 
@@ -357,8 +311,6 @@
             only2: [],
             common: []
         };
-
-        let currentActiveTab = 'tab-only-1';
 
         // DOM Elements
         const dropzone1 = document.getElementById('dropzone1');
@@ -379,18 +331,12 @@
 
             resetBtn.addEventListener('click', resetAll);
 
-            // Tab Switching
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const targetTab = btn.getAttribute('data-tab');
-                    switchTab(targetTab);
-                });
+            // Table search filters
+            document.getElementById('search-only-1').addEventListener('input', (e) => {
+                filterTable('only1', e.target.value.toLowerCase());
             });
-
-            // Search filter event
-            document.getElementById('table-search').addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-                filterTable(query);
+            document.getElementById('search-only-2').addEventListener('input', (e) => {
+                filterTable('only2', e.target.value.toLowerCase());
             });
         });
 
@@ -505,7 +451,7 @@
         function reprocessFiles() {
             if (fileData[1].raw || fileData[2].raw) {
                 processData();
-                showToast("Re-computed results with updated header settings", "info");
+                showToast("Updated results", "info");
             }
         }
 
@@ -562,15 +508,12 @@
             document.getElementById('stat-only-2').textContent = diffResults.only2.length.toLocaleString();
             document.getElementById('stat-common').textContent = diffResults.common.length.toLocaleString();
 
-            // Update badges
-            document.getElementById('badge-only-1').textContent = diffResults.only1.length;
-            document.getElementById('badge-only-2').textContent = diffResults.only2.length;
-            document.getElementById('badge-common').textContent = diffResults.common.length;
+            document.getElementById('count-only-1').textContent = diffResults.only1.length.toLocaleString();
+            document.getElementById('count-only-2').textContent = diffResults.only2.length.toLocaleString();
 
             // Render Tables
             renderTableBody('table-body-only-1', diffResults.only1);
             renderTableBody('table-body-only-2', diffResults.only2);
-            renderTableBody('table-body-common', diffResults.common);
         }
 
         function renderTableBody(elementId, items) {
@@ -578,18 +521,17 @@
             tbody.innerHTML = '';
 
             if (items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="2" class="py-8 text-center text-slate-400 font-sans italic text-xs">No matching values found.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="2" class="py-8 text-center text-slate-400 font-sans italic text-xs">No unique values found.</td></tr>`;
                 return;
             }
 
-            // Limit initial render if massive to keep smooth performance
             const limit = Math.min(items.length, 1000);
             let html = '';
             for (let i = 0; i < limit; i++) {
                 html += `
                     <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="py-2.5 px-4 text-xs text-slate-400 select-none">${i + 1}</td>
-                        <td class="py-2.5 px-4 font-mono font-medium">${escapeHtml(items[i])}</td>
+                        <td class="py-2 px-4 text-xs text-slate-400 select-none">${i + 1}</td>
+                        <td class="py-2 px-4 font-mono font-medium">${escapeHtml(items[i])}</td>
                     </tr>
                 `;
             }
@@ -597,8 +539,8 @@
             if (items.length > 1000) {
                 html += `
                     <tr>
-                        <td colspan="2" class="py-3 px-4 text-center text-xs text-slate-400 bg-slate-50">
-                            Showing first 1,000 items (Total ${items.length.toLocaleString()}). Download CSV to view all.
+                        <td colspan="2" class="py-2 px-4 text-center text-xs text-slate-400 bg-slate-50">
+                            Showing first 1,000 items (${items.length.toLocaleString()} total). Download CSV for full list.
                         </td>
                     </tr>
                 `;
@@ -607,50 +549,16 @@
             tbody.innerHTML = html;
         }
 
-        // Tab Switch Logic
-        function switchTab(tabId) {
-            currentActiveTab = tabId;
-            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.add('hidden'));
-            document.getElementById(tabId).classList.remove('hidden');
-
-            // Update Button Styles
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                if (btn.getAttribute('data-tab') === tabId) {
-                    btn.className = "tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm border-b-2 border-blue-600 text-blue-600 bg-white shadow-sm flex items-center space-x-2";
-                } else {
-                    btn.className = "tab-btn px-4 py-2.5 rounded-t-xl font-medium text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-100 flex items-center space-x-2";
-                }
-            });
-
-            // Re-apply filter on active search query
-            const searchQuery = document.getElementById('table-search').value.toLowerCase();
-            if (searchQuery) filterTable(searchQuery);
-        }
-
-        // Table Search Filter
-        function filterTable(query) {
-            let activeType = 'only1';
-            let tbodyId = 'table-body-only-1';
-
-            if (currentActiveTab === 'tab-only-2') {
-                activeType = 'only2';
-                tbodyId = 'table-body-only-2';
-            } else if (currentActiveTab === 'tab-common') {
-                activeType = 'common';
-                tbodyId = 'table-body-common';
-            }
-
-            const items = diffResults[activeType];
+        function filterTable(type, query) {
+            const items = diffResults[type];
+            const tbodyId = type === 'only1' ? 'table-body-only-1' : 'table-body-only-2';
             const filtered = items.filter(item => item.toLowerCase().includes(query));
             renderTableBody(tbodyId, filtered);
         }
 
         // Copy to Clipboard Action
         function copyToClipboard(type) {
-            let dataArr = [];
-            if (type === 'only-1') dataArr = diffResults.only1;
-            if (type === 'only-2') dataArr = diffResults.only2;
-            if (type === 'common') dataArr = diffResults.common;
+            let dataArr = type === 'only-1' ? diffResults.only1 : diffResults.only2;
 
             if (dataArr.length === 0) {
                 showToast("Nothing to copy", "error");
@@ -658,8 +566,6 @@
             }
 
             const textToCopy = dataArr.join('\n');
-            
-            // execCommand fallback for seamless clipboard copy
             const dummy = document.createElement("textarea");
             document.body.appendChild(dummy);
             dummy.value = textToCopy;
@@ -667,24 +573,13 @@
             document.execCommand("copy");
             document.body.removeChild(dummy);
 
-            showToast(`Copied ${dataArr.length.toLocaleString()} items to clipboard!`, "success");
+            showToast(`Copied ${dataArr.length.toLocaleString()} items!`, "success");
         }
 
         // Download CSV Action
         function downloadCSV(type) {
-            let dataArr = [];
-            let fileName = 'results.csv';
-
-            if (type === 'only-1') {
-                dataArr = diffResults.only1;
-                fileName = 'only_in_file1.csv';
-            } else if (type === 'only-2') {
-                dataArr = diffResults.only2;
-                fileName = 'only_in_file2.csv';
-            } else if (type === 'common') {
-                dataArr = diffResults.common;
-                fileName = 'common_in_both.csv';
-            }
+            let dataArr = type === 'only-1' ? diffResults.only1 : diffResults.only2;
+            let fileName = type === 'only-1' ? 'only_in_file1.csv' : 'only_in_file2.csv';
 
             if (dataArr.length === 0) {
                 showToast("No data to export", "error");
@@ -709,8 +604,9 @@
         function resetAll() {
             removeFile(1);
             removeFile(2);
-            document.getElementById('table-search').value = '';
-            showToast("Application state reset", "info");
+            document.getElementById('search-only-1').value = '';
+            document.getElementById('search-only-2').value = '';
+            showToast("Reset complete", "info");
         }
 
         // Notification Toast Helper
